@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+    
+	<LinearLayout
+	    android:id="@+id/upperLL"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginTop="20dp"
+	    android:weightSum="8"
+	    android:orientation="horizontal" >
+	    	
+	    <EditText
+        	android:id="@+id/emailInput"
+        	android:layout_width="0dp"
+        	android:layout_height="35dp"
+       		android:singleLine="true"
+       		android:maxLength="32"
+       		android:textSize="12sp"
+       		android:hint="@string/email"
+            android:gravity="left|center"
+            android:layout_weight="2">
+			<requestFocus />
+    	</EditText>
+    	
+	   	<EditText
+        	android:id="@+id/subjectInput"
+        	android:layout_width="0dp"
+        	android:layout_height="35dp"
+        	android:singleLine="true"
+        	android:maxLength="32"
+        	android:textSize="12sp"
+        	android:hint="@string/subject"
+            android:gravity="left|center" 
+            android:layout_weight="4">
+			<requestFocus />
+    	</EditText>
+	</LinearLayout>
+	
+	<LinearLayout 
+	    android:id="@+id/bottomLL"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@id/upperLL"
+	    android:layout_alignLeft="@id/upperLL"
+	    android:layout_marginRight="10dp"
+	    android:orientation="vertical"
+	    android:weightSum="8" >
+		    	
+		<EditText
+        	android:id="@+id/contentInput"
+        	android:layout_width="match_parent"
+        	android:layout_height="0dp"
+        	android:inputType="textMultiLine"
+        	android:textSize="12sp"
+        	android:hint="@string/content" 
+        	android:gravity="top|left"
+            android:layout_weight="3" >
+			<requestFocus />
+    	</EditText>
+    	
+		<Button 
+		    android:id="@+id/submit"
+		    android:layout_width="wrap_content"
+		    android:layout_height="40dp"
+		    android:text="@string/ok"
+		    android:layout_gravity="center"
+		    />
+		
+		<TextView
+		    android:id="@+id/received"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    />
+	</LinearLayout>
+	
+</RelativeLayout>

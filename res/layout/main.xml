@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:weightSum="10" >
+
+    <RelativeLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="5" >
+
+        <com.example.slidingmenuexample.SquareImageButton
+            android:id="@+id/button_down"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_below="@+id/button_left"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/down_arrow" />
+
+        <com.example.slidingmenuexample.SquareImageButton
+            android:id="@+id/button_up"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_above="@+id/button_left"
+            android:layout_alignLeft="@+id/button_down"
+            android:background="@drawable/up_arrow" />
+
+        <com.example.slidingmenuexample.SquareImageButton
+            android:id="@+id/button_right"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_above="@+id/button_down"
+            android:layout_toRightOf="@+id/button_down"
+            android:background="@drawable/right_arrow" />
+
+        <com.example.slidingmenuexample.SquareImageButton
+            android:id="@+id/button_left"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/button_down"
+            android:background="@drawable/left_arrow" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:weightSum="5"
+        android:layout_weight="5"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextView02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Power:"
+            android:textSize="18sp" />
+
+        <SeekBar
+            android:id="@+id/power_seekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/state_display"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            android:text="Not connected"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/connect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Connect" />
+
+        <Button
+            android:id="@+id/disconnect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Disconnect"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>

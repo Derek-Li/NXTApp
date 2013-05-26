@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NXT Remote+</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hello">This is working!</string>
+    <string name="derp">DERP</string>
+    <string name="herp">HERP</string>
+    <string name="goodjob">GOODJOB</string>
+    <string name="email">Email</string>
+    <string name="subject">Subject</string>
+    <string name="content">Please enter your message here</string>
+    <string name="ok">OK</string>
+    <string name="submit">Submit</string>
+    <string name="power">Power: </string>
+    <string name="not_connected">Not connected</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disonnected</string>
+    <string name="disclaimer">We do not take responsibility.</string>
+	<string name="disagree">I Disagree</string>
+ 	<string name="agree">I Agree</string>   
+ 	<string name="next">Next page</string>
+    
+</resources>
