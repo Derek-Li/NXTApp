@@ -13,7 +13,7 @@
         android:layout_weight="50"
         android:gravity="center|bottom"
         android:textColor="#FFFFF0"
-        android:text="Would you like to go through the tutorial?"
+        android:text="@string/tutorialprompt"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -28,13 +28,13 @@
             android:id="@+id/bagree"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Yes" />
+            android:text="@string/yes" />
 
         <Button
             android:id="@+id/bdisagree"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="No" />
+            android:text="@string/no" />
     </LinearLayout>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,17 +23,16 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.slidingmenuexample.BaseActivity;
-import com.example.slidingmenuexample.R;
 import com.example.slidingmenuexample.MenuListPages;
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.example.slidingmenuexample.R;
 
 public class MainActivity extends BaseActivity {
 
-	private Fragment mContent;
-	
 	public MainActivity() {
 		super(R.string.app_name);
 	}
+
+	public Fragment MApieces;   
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,47 +41,48 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 
 		if (savedInstanceState != null)
-			mContent = getSupportFragmentManager().getFragment(
-					savedInstanceState, "mContent");
-		if (mContent == null)
-			mContent = new MainView();
+			MApieces = getSupportFragmentManager().getFragment(
+					savedInstanceState, "MApieces");
+		if (MApieces == null)
+			MApieces = new AllContent();
 
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, mContent).commit();
+				.replace(R.id.content_frame, MApieces).commit();
 
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new MenuListPages()).commit();
-
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		setSlidingActionBarEnabled(true);
+
 	}
 	
 	@Override
 	public void onBackPressed() {
-	    new AlertDialog.Builder(this)
-        	.setTitle("Exit?")
-        	.setMessage("Do you really want to exit?")
-	        .setNegativeButton(android.R.string.no, null)
-	        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(this)
+				.setTitle("Exit?")
+				.setMessage("Do you really want to exit?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
 
-	            public void onClick(DialogInterface x, int y) {
-	            	MainActivity.super.onBackPressed();
-	            	finish();
-	            }
-	        }).create().show();
+							public void onClick(DialogInterface x, int y) {
+								MainActivity.super.onBackPressed();
+								finish();
+							}
+						}).create().show();
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
+		getSupportFragmentManager().putFragment(outState, "MApieces", MApieces);
 	}
 
 	public void switchContent(Fragment fragment) {
-		mContent = fragment;
-		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+		MApieces = fragment;
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
 		getSlidingMenu().showContent();
 	}
 
@@ -95,7 +96,7 @@ public class MainActivity extends BaseActivity {
 		return onOptionsItemSelected(item);
 	}
 
-	public static class MainView extends SherlockFragment {
+	public static class AllContent extends SherlockFragment {
 
 		ImageView btnOrange, btnGray, avatar;
 		TextView userName, teamName, teamNum, grade, schoolName, teacherName;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity {
 		final static int CameraData = 0;
 		Bitmap bmp;
 
-		public MainView() {
+		public AllContent() {
 
 		}
 
@@ -120,7 +121,11 @@ public class MainActivity extends BaseActivity {
 			super.onStart();
 
 			btnOrange = (ImageView) getView().findViewById(R.id.orangebutton);
+			btnOrange.setImageResource(R.drawable.camera);
+			
 			btnGray = (ImageView) getView().findViewById(R.id.graybutton);
+			btnGray.setImageResource(R.drawable.graybutton);
+			
 			avatar = (ImageView) getView().findViewById(R.id.targetimage);
 
 			userName = (TextView) getView().findViewById(R.id.userName);
@@ -146,31 +151,37 @@ public class MainActivity extends BaseActivity {
 			teamName.setText("Team name: \t" + dataReturned);
 
 			dataReturned = someData.getString("teamNum", "2");
-			teamNum.setText("Team #:    \t\t\t" + dataReturned);
+			teamNum.setText("Team #:    \t\t" + dataReturned);
 
 			dataReturned = someData.getString("grade", "5");
 			grade.setText("Grade:     \t\t\t" + dataReturned);
 
 			dataReturned = someData.getString("schoolName", "St. Agnes");
-			schoolName.setText("School:    \t\t\t" + dataReturned);
+			schoolName.setText("School:    \t\t" + dataReturned);
 
 			dataReturned = someData.getString("teacherName", "Mr. Bob");
-			teacherName.setText("Teacher:   \t\t\t" + dataReturned);
+			teacherName.setText("Teacher:   \t\t" + dataReturned);
 
 			dataReturned = someData.getString("uriName",
 					"content://media/external/images/media/8775");
+
 			Uri newUri = Uri.parse(dataReturned);
 			Bitmap bitmap;
 			try {
-				bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver()
-						.openInputStream(newUri));
+				BitmapFactory.Options options = new BitmapFactory.Options();
+				options.inSampleSize = 10;
+				bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(newUri), null, options);
 				avatar.setImageBitmap(bitmap);
+
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
+			
 		}
+		
+	
 
 		public void addListenerOnImageView(ImageView I_m) {
 
@@ -182,15 +193,18 @@ public class MainActivity extends BaseActivity {
 						cameraCall();
 						break;
 					case R.id.graybutton:
-						startActivity(new Intent("com.example.slidingmenuexample.Registration"));
+						startActivity(new Intent(
+								"com.example.slidingmenuexample.ui.Registration"));
 					}
 				}
 			});
 		}
 
 		private void cameraCall() {
-			startActivityForResult(new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE), CameraData);
-		}	
+			startActivityForResult(new Intent(
+					android.provider.MediaStore.ACTION_IMAGE_CAPTURE),
+					CameraData);
+		}
 
 		@Override
 		public void onActivityResult(int requestCode, int resultCode,

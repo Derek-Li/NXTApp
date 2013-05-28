@@ -28,18 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity
-            android:name="com.example.slidingmenuexample.ui.Registration"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" > 
-            <intent-filter>
-                <action android:name="com.example.slidingmenuexample.Registration" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
         <activity
             android:name="com.example.slidingmenuexample.tutorial.TutorialAcceptActivity"
             android:label="@string/app_name"
@@ -50,7 +38,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.example.slidingmenuexample.tutorial.TutorialPart1"
             android:label="@string/app_name"
@@ -61,7 +48,36 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <activity
+            android:name="com.example.slidingmenuexample.tutorial.TutorialPart2"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.example.slidingmenuexample.tutorial.TutorialPart2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.slidingmenuexample.ui.RegisterAcceptActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.example.slidingmenuexample.ui.RegisterAcceptActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.slidingmenuexample.ui.Registration"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.example.slidingmenuexample.ui.Registration" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.slidingmenuexample.ui.MainActivity"
             android:label="@string/app_name"
@@ -72,29 +88,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
-        <activity
-            android:name="com.example.slidingmenuexample.ui.contactSharing"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="com.example.slidingmenuexample.ui.contactSharing" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name="com.example.slidingmenuexample.ui.contactProfessor"
-            android:label="@string/app_name"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="com.example.slidingmenuexample.ui.contactProfessor" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
         <activity
             android:name="com.example.slidingmenuexample.ui.NXTRemoteControl"
             android:configChanges="keyboardHidden|orientation"
@@ -107,14 +100,32 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <activity
+            android:name="com.example.slidingmenuexample.ui.contactSharing"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.example.slidingmenuexample.ui.contactSharing" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.slidingmenuexample.ui.contactProfessor"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.example.slidingmenuexample.ui.contactProfessor" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.slidingmenuexample.ChooseDeviceActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="Select device"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        
     </application>
 
 </manifest>

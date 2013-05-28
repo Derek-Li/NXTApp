@@ -1,5 +1,9 @@
 package com.example.slidingmenuexample.tutorial;
 
+import com.example.slidingmenuexample.R;
+import com.example.slidingmenuexample.R.id;
+import com.example.slidingmenuexample.R.layout;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,9 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-
-import com.example.slidingmenuexample.R;
-import com.example.slidingmenuexample.ui.MainActivity;
 
 public class TutorialPart1 extends Activity implements View.OnClickListener {
 
@@ -24,8 +25,8 @@ public class TutorialPart1 extends Activity implements View.OnClickListener {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		setContentView(R.layout.tutorial_1);
-		next = (Button) findViewById(R.id.nextpage);
+		setContentView(R.layout.tutorial_1); 
+		next = (Button) findViewById(R.id.nextpage); 
 
 		next.setOnClickListener(this);
 	}
@@ -52,7 +53,7 @@ public class TutorialPart1 extends Activity implements View.OnClickListener {
 	}
 
 	private void nextPressed() {
-		startActivity(new Intent(TutorialPart1.this, MainActivity.class));
+		startActivity(new Intent(TutorialPart1.this, TutorialPart2.class));
 		finish();
 	}
 }

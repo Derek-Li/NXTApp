@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/splashandroid"
     android:orientation="vertical"
-    android:weightSum="100" 
-    android:background="@drawable/splashandroid">
+    android:weightSum="100" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="99"
+        android:gravity="center|top"
         android:text="@string/disclaimer"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

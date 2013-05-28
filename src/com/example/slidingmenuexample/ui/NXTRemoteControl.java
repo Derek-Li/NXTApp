@@ -46,8 +46,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -56,14 +55,23 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.slidingmenuexample.ChooseDeviceActivity;
+import com.example.slidingmenuexample.ImageCache;
+import com.example.slidingmenuexample.MenuListPages;
 import com.example.slidingmenuexample.NXTTalker;
 import com.example.slidingmenuexample.R;
-import com.example.slidingmenuexample.MenuListPages;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class NXTRemoteControl extends SlidingFragmentActivity implements
 		OnSharedPreferenceChangeListener {
+	
+	public static final String CONNECT_IMG_REF = "button_a";
+	public static final String DISCONNECT_IMG_REF = "button_b";
+	public static final String UP_IMG_REF = "up_arrow";
+	public static final String MIDDLE_IMG_REF = "middle_button";
+	public static final String DOWN_IMG_REF = "down_arrow";
+	public static final String LEFT_IMG_REF = "left_arrow";
+	public static final String RIGHT_IMG_REF = "right_arrow";
 
 	private boolean NO_BT = false;
 
@@ -88,8 +96,9 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 	private boolean mNewLaunch = true;
 	private String mDeviceAddress = null;
 	private TextView mStateDisplay;
-	private Button mConnectButton;
-	private Button mDisconnectButton;
+	private ImageView mConnectButton;
+	private ImageView mDisconnectButton;
+	SlidingMenu pagelist;
 
 	private int mPower = 80;
 	private int mControlsMode = MODE_BUTTONS;
@@ -148,12 +157,11 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 
 		mNXTTalker = new NXTTalker(mHandler);
 		
-		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidth(15);
-		sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffset(600);
-		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		pagelist = getSlidingMenu();
+		pagelist.setShadowDrawable(R.drawable.shadow);
+		pagelist.setBehindOffset(600);
+		pagelist.setShadowWidth(15);
+		pagelist.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.ic_launcher);
@@ -172,7 +180,6 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new MenuListPages()).commit();
 		
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		setSlidingActionBarEnabled(true);
 	}
 	
@@ -216,7 +223,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.main, container,
+			return inflater.inflate(R.layout.remote_control, container,
 					false);
 		}
 		
@@ -244,6 +251,28 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			}
 			
 			setupUI();
+			
+			ImageView button_a = (ImageView) findViewById(R.id.button_a);
+			button_a.setImageResource((R.drawable.button_a));
+			
+			ImageView button_b = (ImageView) findViewById(R.id.button_b);
+			button_b.setImageResource((R.drawable.button_b));		
+			
+			ImageView up_arrow = (ImageView) findViewById(R.id.button_up);
+			up_arrow.setImageResource((R.drawable.up_arrow));			
+			
+			ImageView down_arrow = (ImageView) findViewById(R.id.button_down);
+			down_arrow.setImageResource((R.drawable.down_arrow));		
+			
+			ImageView middle_button = (ImageView) findViewById(R.id.button_middle);
+			middle_button.setImageResource((R.drawable.middle_button));	
+			
+			ImageView left_arrow = (ImageView) findViewById(R.id.button_left);
+			left_arrow.setImageResource((R.drawable.left_arrow));	
+			
+			ImageView right_arrow = (ImageView) findViewById(R.id.button_right);
+			right_arrow.setImageResource((R.drawable.right_arrow));
+			
 		}
 		
 /*		public void switchContent(Fragment fragment) {
@@ -291,17 +320,18 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 
 	private void setupUI() {
 		if (mControlsMode == MODE_BUTTONS) {
-			setContentView(R.layout.main);
+			setContentView(R.layout.remote_control);
 
-			ImageButton buttonUp = (ImageButton) findViewById(R.id.button_up);
+			ImageView buttonUp = (ImageView) findViewById(R.id.button_up);
 			buttonUp.setOnTouchListener(new DirectionButtonOnTouchListener(1, 1));
-			ImageButton buttonLeft = (ImageButton) findViewById(R.id.button_left);
+			
+			ImageView buttonLeft = (ImageView) findViewById(R.id.button_left);
 			buttonLeft.setOnTouchListener(new DirectionButtonOnTouchListener(
 					-0.6, 0.6));
-			ImageButton buttonDown = (ImageButton) findViewById(R.id.button_down);
+			ImageView buttonDown = (ImageView) findViewById(R.id.button_down);
 			buttonDown.setOnTouchListener(new DirectionButtonOnTouchListener(
 					-1, -1));
-			ImageButton buttonRight = (ImageButton) findViewById(R.id.button_right);
+			ImageView buttonRight = (ImageView) findViewById(R.id.button_right);
 			buttonRight.setOnTouchListener(new DirectionButtonOnTouchListener(
 					0.6, -0.6));
 
@@ -326,7 +356,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 
 			mStateDisplay = (TextView) findViewById(R.id.state_display);
 
-			mConnectButton = (Button) findViewById(R.id.connect_button);
+			mConnectButton = (ImageView) findViewById(R.id.button_b);
 			mConnectButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -339,7 +369,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 				}
 			});
 
-			mDisconnectButton = (Button) findViewById(R.id.disconnect_button);
+			mDisconnectButton = (ImageView) findViewById(R.id.button_a);
 			mDisconnectButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -417,7 +447,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		int color = 0;
 		switch (mState) {
 		case NXTTalker.STATE_NONE:
-			stateText = "Not connected";
+			stateText = "NOT CONNECTED";
 			color = 0xffff0000;
 			mConnectButton.setVisibility(View.VISIBLE);
 			mDisconnectButton.setVisibility(View.GONE);
@@ -427,7 +457,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			}
 			break;
 		case NXTTalker.STATE_CONNECTING:
-			stateText = "Connecting...";
+			stateText = "CONNECTING";
 			color = 0xffffff00;
 			mConnectButton.setVisibility(View.GONE);
 			mDisconnectButton.setVisibility(View.GONE);
@@ -437,7 +467,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			}
 			break;
 		case NXTTalker.STATE_CONNECTED:
-			stateText = "Connected";
+			stateText = "CONNECTED";
 			color = 0xff00ff00;
 			mConnectButton.setVisibility(View.GONE);
 			mDisconnectButton.setVisibility(View.VISIBLE);

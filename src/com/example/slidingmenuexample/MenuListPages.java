@@ -13,9 +13,9 @@ import com.actionbarsherlock.app.SherlockListFragment;
 public class MenuListPages extends SherlockListFragment {
 	
 	String[] menu_pages = {"Home", "Remote Control", "Sharing", "Contact", "Profile"};
-
+	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.list, container, false);
+		return inflater.inflate(R.layout.menu, container, false);
 		
 	}
 	
@@ -28,6 +28,7 @@ public class MenuListPages extends SherlockListFragment {
 	    	startActivity(new Intent("com.example.slidingmenuexample.ui.MainActivity"));
 			break;
 	    case 1:
+	    	onPause();
 	    	startActivity(new Intent("com.example.slidingmenuexample.ui.NXTRemoteControl"));
 			break;
 	    case 2:
@@ -45,5 +46,10 @@ public class MenuListPages extends SherlockListFragment {
 	public void onActivityCreated(Bundle savedInstanceState){ 
 		super.onActivityCreated(savedInstanceState);
 		setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, menu_pages));
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
 	}
 }

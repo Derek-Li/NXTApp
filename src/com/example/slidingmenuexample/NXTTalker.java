@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/*
+/* 
  * This file is derived from:
  * 
  * http://developer.android.com/resources/samples/BluetoothChat/src/com/example/android/BluetoothChat/BluetoothChatService.html
@@ -30,12 +30,13 @@ import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
+import com.example.slidingmenuexample.ui.NXTRemoteControl;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 
-import com.example.slidingmenuexample.ui.NXTRemoteControl;
 
 public class NXTTalker {
 

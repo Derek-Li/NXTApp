@@ -11,32 +11,33 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class BaseActivity extends SlidingFragmentActivity {
 
-	private int mTitleRes;
-	protected ListFragment mFrag;
+	private int page_title;
+	SlidingMenu pagelist;
+	protected ListFragment page_fragment;
 
-	public BaseActivity(int titleRes) {
-		mTitleRes = titleRes;
+	public BaseActivity(int title) {
+		page_title = title;
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setTitle(mTitleRes);
+		setTitle(page_title);
+
 
 		setBehindContentView(R.layout.menu_frame);
-		FragmentTransaction ft = this.getSupportFragmentManager()
-				.beginTransaction();
-		mFrag = new MenuListPages();
-		ft.replace(R.id.menu_frame, mFrag);
+		FragmentTransaction ft = this.getSupportFragmentManager().beginTransaction();
+		page_fragment = new MenuListPages();
+		ft.replace(R.id.menu_frame, page_fragment);
 		ft.commit();
+		
 
-		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidth(20);
-		sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffset(600);
-		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		pagelist = getSlidingMenu();
+		pagelist.setShadowDrawable(R.drawable.shadow);
+		pagelist.setBehindOffset(600);
+		pagelist.setShadowWidth(15);
+		pagelist.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.ic_launcher);
@@ -58,33 +59,4 @@ public class BaseActivity extends SlidingFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
-
-//	public class BasePagerAdapter extends FragmentPagerAdapter {
-//		private List<Fragment> mFragments = new ArrayList<Fragment>();
-//		private ViewPager mPager;
-//
-//		public BasePagerAdapter(FragmentManager fm, ViewPager vp) {
-//			super(fm);
-//			mPager = vp;
-//			mPager.setAdapter(this);
-//			for (int i = 0; i < 3; i++) {
-//				addTab(new MenuListPages());
-//			}
-//		}
-//
-//		public void addTab(Fragment frag) {
-//			mFragments.add(frag);
-//		}
-//
-//		@Override
-//		public Fragment getItem(int position) {
-//			return mFragments.get(position);
-//		}
-//
-//		@Override
-//		public int getCount() {
-//			return mFragments.size();
-//		}
-//	}
-
 }
