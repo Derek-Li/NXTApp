@@ -3,9 +3,10 @@ package com.example.slidingmenuexample.ui;
 import java.io.FileNotFoundException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -107,18 +108,35 @@ public class Registration extends Activity implements OnClickListener {
 	}
 
 	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setTitle("Exit?")
+				.setMessage("Do you really want to exit?")
+				.setNegativeButton(android.R.string.no, null)
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+
+							public void onClick(DialogInterface x, int y) {
+								Registration.super.onBackPressed();
+								finish();
+							}
+						}).create().show();
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK) {
 			Uri targetUri = data.getData();
 			stringUri = targetUri.toString();
-			Bitmap bitmap;  
+			Bitmap bitmap;
 			try {
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inSampleSize = 10;
 
-				bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri), null, options);
+				bitmap = BitmapFactory.decodeStream(getContentResolver()
+						.openInputStream(targetUri), null, options);
 				targetImage.setImageBitmap(bitmap);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

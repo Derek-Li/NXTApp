@@ -55,7 +55,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.slidingmenuexample.ChooseDeviceActivity;
-import com.example.slidingmenuexample.ImageCache;
 import com.example.slidingmenuexample.MenuListPages;
 import com.example.slidingmenuexample.NXTTalker;
 import com.example.slidingmenuexample.R;

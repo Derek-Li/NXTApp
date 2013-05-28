@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/Options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:text="@string/options" />
+
+    <ImageView
+        android:id="@+id/facebookbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:inputType="textNoSuggestions"
+        android:src="@drawable/facebookbtn" />
+
+    <ImageView
+        android:id="@+id/instagrambtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/facebookbtn"
+        android:layout_alignParentLeft="true"
+        android:clickable="true"
+        android:src="@drawable/instagrambtn" />
+
+    <ImageView
+        android:id="@+id/twitterbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/facebookbtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:clickable="true"
+        android:src="@drawable/twitterbtn" />
+
+    <Button
+        android:id="@+id/wikispacesbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/facebookbtn"
+        android:text="Wiki Spaces" />
+
+</RelativeLayout>

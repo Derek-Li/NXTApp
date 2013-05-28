@@ -28,11 +28,10 @@ public class MenuListPages extends SherlockListFragment {
 	    	startActivity(new Intent("com.example.slidingmenuexample.ui.MainActivity"));
 			break;
 	    case 1:
-	    	onPause();
 	    	startActivity(new Intent("com.example.slidingmenuexample.ui.NXTRemoteControl"));
 			break;
 	    case 2:
-			startActivity(new Intent("com.example.slidingmenuexample.ui.contactSharing"));
+			startActivity(new Intent("com.example.slidingmenuexample.ui.SocialNetworking"));
 			break;
 	    case 3:
 	    	startActivity(new Intent("com.example.slidingmenuexample.ui.contactProfessor"));
