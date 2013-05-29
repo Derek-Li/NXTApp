@@ -121,9 +121,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.slidingmenuexample.ChooseDeviceActivity"
+            android:name="com.example.slidingmenuexample.BTSearcher"
             android:configChanges="keyboardHidden|orientation"
-            android:label="Select device"
+            android:label="Available Bluetooth Devices"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
     </application>

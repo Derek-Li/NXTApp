@@ -71,16 +71,6 @@ public class NXTTalker {
     public synchronized void setHandler(Handler handler) {
         mHandler = handler;
     }
-    
-//    private void toast(String text) {
-//        if (mHandler != null) {
-//            Message msg = mHandler.obtainMessage(NXTRemoteControl.MESSAGE_TOAST);
-//            Bundle bundle = new Bundle();
-//            bundle.putString(NXTRemoteControl.TOAST, text);
-//            msg.setData(bundle);
-//            mHandler.sendMessage(msg);
-//        }
-//    }
 
     public synchronized void connect(BluetoothDevice device) {
     	

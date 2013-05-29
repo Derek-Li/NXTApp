@@ -54,7 +54,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.slidingmenuexample.ChooseDeviceActivity;
+import com.example.slidingmenuexample.BTSearcher;
 import com.example.slidingmenuexample.MenuListPages;
 import com.example.slidingmenuexample.NXTTalker;
 import com.example.slidingmenuexample.R;
@@ -160,7 +160,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		pagelist.setShadowDrawable(R.drawable.shadow);
 		pagelist.setBehindOffset(600);
 		pagelist.setShadowWidth(15);
-		pagelist.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		pagelist.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.ic_launcher);
@@ -220,7 +220,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			
 		}
 		
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+		public View onCreateView(LayoutInflater inflater, 	ViewGroup container,
 				Bundle savedInstanceState) {
 			return inflater.inflate(R.layout.remote_control, container,
 					false);
@@ -273,13 +273,6 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			right_arrow.setImageResource((R.drawable.right_arrow));
 			
 		}
-		
-/*		public void switchContent(Fragment fragment) {
-			mContent = fragment;
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.content_frame, fragment).commit();
-			getSlidingMenu().showContent();
-		}*/
 	}
 
 	private class DirectionButtonOnTouchListener implements OnTouchListener {
@@ -403,7 +396,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 	}
 
 	private void findBrick() {
-		startActivityForResult(new Intent(this, ChooseDeviceActivity.class), REQUEST_CONNECT_DEVICE);
+		startActivityForResult(new Intent(this, BTSearcher.class), REQUEST_CONNECT_DEVICE);
 	}
 
 	@Override
@@ -421,7 +414,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		case REQUEST_CONNECT_DEVICE:
 			if (resultCode == Activity.RESULT_OK) {
 				String address = data.getExtras().getString(
-						ChooseDeviceActivity.EXTRA_DEVICE_ADDRESS);
+						BTSearcher.DEVICE_ADDRESS);
 				BluetoothDevice device = mBluetoothAdapter
 						.getRemoteDevice(address);
 				mDeviceAddress = address;
