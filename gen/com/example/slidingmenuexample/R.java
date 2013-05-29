@@ -1042,7 +1042,6 @@ containing a value of this type.
         public static final int up_arrow=0x7f020082;
     }
     public static final class id {
-        public static final int Options=0x7f04006e;
         public static final int TextView02=0x7f040067;
         public static final int abs__action_bar=0x7f040025;
         public static final int abs__action_bar_container=0x7f040024;
@@ -1083,10 +1082,10 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040018;
         public static final int abs__title=0x7f040020;
         public static final int abs__up=0x7f04000b;
-        public static final int action_settings=0x7f040078;
+        public static final int action_settings=0x7f040079;
         public static final int bOK=0x7f04005c;
-        public static final int bagree=0x7f040073;
-        public static final int bdisagree=0x7f040074;
+        public static final int bagree=0x7f040074;
+        public static final int bdisagree=0x7f040075;
         public static final int bottomLL=0x7f040048;
         public static final int btnLater=0x7f04005e;
         public static final int btnNow=0x7f04005d;
@@ -1104,6 +1103,7 @@ containing a value of this type.
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f04002b;
         public static final int emailInput=0x7f040046;
+        public static final int emailbtn=0x7f040073;
         public static final int facebook=0x7f04006a;
         public static final int facebookbtn=0x7f04006f;
         public static final int fullscreen=0x7f040013;
@@ -1119,9 +1119,10 @@ containing a value of this type.
         public static final int margin=0x7f040012;
         public static final int menu_frame=0x7f040054;
         public static final int new_devices=0x7f040050;
-        public static final int nextpage=0x7f040076;
+        public static final int nextpage=0x7f040077;
         public static final int no_devices=0x7f040051;
         public static final int normal=0x7f040001;
+        public static final int options=0x7f04006e;
         public static final int orangebutton=0x7f040043;
         public static final int orangegray=0x7f040042;
         public static final int paired_devices=0x7f04004e;
@@ -1152,8 +1153,8 @@ containing a value of this type.
         public static final int title_new_devices=0x7f04004f;
         public static final int title_paired_devices=0x7f04004d;
         public static final int titleofmenu=0x7f040053;
-        public static final int tutorial_1=0x7f040075;
-        public static final int tutorial_2=0x7f040077;
+        public static final int tutorial_1=0x7f040076;
+        public static final int tutorial_2=0x7f040078;
         public static final int twitter=0x7f04006c;
         public static final int twitterbtn=0x7f040071;
         public static final int upperLL=0x7f040045;
@@ -1260,7 +1261,7 @@ containing a value of this type.
         public static final int connected=0x7f090018;
         public static final int content=0x7f090012;
         public static final int disagree=0x7f09001b;
-        public static final int disclaimer=0x7f09002e;
+        public static final int disclaimer=0x7f09002f;
         public static final int disconnect=0x7f090019;
         public static final int disconnected=0x7f09001a;
         public static final int email=0x7f090010;
@@ -1286,6 +1287,7 @@ containing a value of this type.
         public static final int teamnum=0x7f090027;
         public static final int tutorialprompt=0x7f09001f;
         public static final int username=0x7f090025;
+        public static final int wikispaces=0x7f09002e;
         public static final int yes=0x7f090022;
     }
     public static final class style {

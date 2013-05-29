@@ -24,12 +24,13 @@ public class SocialNetworking extends Activity {
 		instagram = (ImageView) findViewById(R.id.instagrambtn);
 		facebook = (ImageView) findViewById(R.id.facebookbtn);
 		twitter = (ImageView) findViewById(R.id.twitterbtn);
-		options = (Button) findViewById(R.id.Options);
+		email = (Button) findViewById(R.id.emailbtn);
+		options = (Button) findViewById(R.id.options);
 		wikispacesbtn = (Button) findViewById(R.id.wikispacesbtn);
-		
-		wikispacesbtn.setOnClickListener(new View.OnClickListener(){
+
+		wikispacesbtn.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v){
+			public void onClick(View v) {
 				String url = "http://www.wikispaces.com/";
 				Intent wikispacesIntent = new Intent(
 						android.content.Intent.ACTION_VIEW);
@@ -77,7 +78,17 @@ public class SocialNetworking extends Activity {
 			}
 		});
 
-		options.setOnClickListener(new View.OnClickListener(){
+		email.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent emailIntent = new Intent(
+						android.content.Intent.ACTION_SEND);
+				emailIntent.setType("text/plain");
+				startActivity(emailIntent);
+			}
+		});
+
+		options.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent othersIntent = new Intent(

@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <Button
-        android:id="@+id/Options"
+        android:id="@+id/options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -46,6 +46,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/facebookbtn"
-        android:text="Wiki Spaces" />
+        android:text="@string/wikispaces" />
+
+    <Button
+        android:id="@+id/emailbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/email" />
 
 </RelativeLayout>

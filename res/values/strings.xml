@@ -34,6 +34,7 @@
  	<string name="loadimage">Load Image</string>
  	<string name="power">Power </string>
  	<string name="navigation">Navigation</string>
+ 	<string name="wikispaces">Wiki Spaces</string>
  	
  	<string name="disclaimer">This application was created and intended for the robotic environment only and not for any other uses. Any use of this application other than its intended purpose by its user will not subject us to fault.</string>
  	
