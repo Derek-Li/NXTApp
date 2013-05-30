@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
@@ -10,84 +11,94 @@
         android:layout_height="match_parent" >
 
         <ImageView
-            android:id="@+id/button_right"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:id="@+id/button_left"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/state_display" />
-
-        <ImageView
-            android:id="@+id/button_down"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_below="@+id/button_left"
-            android:layout_toLeftOf="@+id/button_right" />
-
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/left_arrow"/>
+        
         <ImageView
             android:id="@+id/button_middle"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/button_right" />
-
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_toRightOf="@id/button_left"
+            android:layout_alignTop="@id/button_left"
+            android:background="@drawable/middle_button"/>
+        
         <ImageView
-            android:id="@+id/button_left"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/button_up" />
-
+            android:id="@+id/button_right"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_toRightOf="@id/button_middle"
+            android:layout_alignTop="@id/button_middle"
+            android:background="@drawable/right_arrow"/>
+        
         <ImageView
             android:id="@+id/button_up"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_above="@+id/button_right"
-            android:layout_toLeftOf="@+id/button_right" />
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_above="@id/button_middle"
+            android:layout_alignLeft="@id/button_middle"
+            android:background="@drawable/up_arrow"/>
+        
+        <ImageView
+            android:id="@+id/button_down"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_below="@id/button_middle"
+            android:layout_alignLeft="@id/button_middle"
+            android:background="@drawable/down_arrow"/>
 
         <TextView
             android:id="@+id/state_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/button_up"
-            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/button_up"
+            android:layout_marginLeft="55dp"
+            android:layout_marginTop="32dp"
+            android:layout_toRightOf="@id/button_right"
             android:text="@string/not_connected"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="monospace" />
 
-        <SeekBar
-            android:id="@+id/power_seekbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/TextView02"
-            android:layout_alignRight="@id/state_display"
-            android:layout_below="@+id/TextView02"
-            android:layout_toRightOf="@id/button_right"
-            android:max="100" />
-
         <TextView
-            android:id="@+id/TextView02"
+            android:id="@+id/powertext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button_down"
-            android:layout_toRightOf="@+id/button_right"
+            android:layout_above="@+id/power_bar"
+            android:layout_alignLeft="@+id/state_display"
             android:text="@string/power"
             android:textSize="14sp"
             android:typeface="monospace" />
-
-        <ImageView
-            android:id="@+id/button_b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/state_display" />
         
         <ImageView
             android:id="@+id/button_a"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/powertext"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/state_display" />
+            android:background="@drawable/button_a" />
+        
+        <ImageView
+            android:id="@+id/button_b"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignLeft="@id/powertext"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_b" />
+
+        <SeekBar
+            android:id="@+id/power_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/button_down"
+            android:layout_alignLeft="@id/powertext"
+            android:layout_marginRight="5dp"
+            android:max="100" />
+
     </RelativeLayout>
 
 </LinearLayout>

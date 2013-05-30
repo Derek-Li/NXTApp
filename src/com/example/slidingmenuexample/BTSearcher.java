@@ -33,7 +33,7 @@ public class BTSearcher extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		setContentView(R.layout.device_list);
+		setContentView(R.layout.bt_device_list);
 		setResult(Activity.RESULT_CANCELED);
 
 		Button scanButton = (Button) findViewById(R.id.button_scan);
@@ -44,8 +44,8 @@ public class BTSearcher extends Activity {
 			}
 		});
 
-		deviceArrayAd = new ArrayAdapter<String>(this, R.layout.device_name);
-		newDevicesArrayAd = new ArrayAdapter<String>(this, R.layout.device_name);
+		deviceArrayAd = new ArrayAdapter<String>(this, R.layout.bt_names);
+		newDevicesArrayAd = new ArrayAdapter<String>(this, R.layout.bt_names);
 
 		ListView pairedListView = (ListView) findViewById(R.id.paired_devices);
 		pairedListView.setAdapter(deviceArrayAd);
@@ -56,10 +56,10 @@ public class BTSearcher extends Activity {
 		newDevicesListView.setOnItemClickListener(displayBTInfo);
 
 		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-		this.registerReceiver(mReceiver, filter);
+		this.registerReceiver(btlisting, filter);
 
 		filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-		this.registerReceiver(mReceiver, filter);
+		this.registerReceiver(btlisting, filter);
 
 		blueToothAd = BluetoothAdapter.getDefaultAdapter();
 
@@ -74,18 +74,7 @@ public class BTSearcher extends Activity {
 		}
 
 	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-
-		if (blueToothAd != null) {
-			blueToothAd.cancelDiscovery();
-		}
-
-		this.unregisterReceiver(mReceiver);
-	}
-
+	
 	private void findBTDevice() {
 		setProgressBarIndeterminateVisibility(true);
 		setTitle("Searching in Progress");
@@ -114,7 +103,7 @@ public class BTSearcher extends Activity {
 		}
 	};
 
-	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+	private final BroadcastReceiver btlisting = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String x = intent.getAction();
@@ -133,4 +122,16 @@ public class BTSearcher extends Activity {
 			}
 		}
 	};
+	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		if (blueToothAd != null) {
+			blueToothAd.cancelDiscovery();
+		}
+
+		this.unregisterReceiver(btlisting);
+	}
 }

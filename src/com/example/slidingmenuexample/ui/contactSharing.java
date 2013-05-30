@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.slidingmenuexample.ImageCache;
 import com.example.slidingmenuexample.MenuListPages;
 import com.example.slidingmenuexample.R;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -92,30 +91,7 @@ public class contactSharing extends SlidingFragmentActivity {
 		public void onStart() {
 			// TODO Auto-generated method stub
 			super.onStart();
-
-			fbShare = (ImageView) getView().findViewById(R.id.facebook);
-			fbShare.setImageDrawable(ImageCache.getInstance().getDrawable(FB_IMG_REF, getActivity())); //(R.drawable.facebook);
-			
-			twitShare = (ImageView) getView().findViewById(R.id.twitter);
-			twitShare.setImageDrawable(ImageCache.getInstance().getDrawable(TWITTER_IMG_REF, getActivity())); //(R.drawable.twitter);
-			
-			instaShare = (ImageView) getView().findViewById(R.id.instagram);
-			instaShare.setImageDrawable(ImageCache.getInstance().getDrawable(INSTAGRAM_IMG_REF, getActivity())); //(R.drawable.instagram);
-
-//			addListenerOnImageView(fbShare);
-//			addListenerOnImageView(twitShare);
-//			addListenerOnImageView(instaShare);
 		}
-
-//		public void addListenerOnImageView(ImageView I_m) {
-//
-//			I_m.setOnClickListener(new OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					startActivity(new Intent(getActivity(), MainActivity.class));
-//				}
-//			});
-//		}
 	}
 
 }

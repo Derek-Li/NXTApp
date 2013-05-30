@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/facebookbtn"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:clickable="true"
         android:src="@drawable/instagrambtn" />
 
@@ -34,7 +35,6 @@
         android:id="@+id/twitterbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/facebookbtn"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
         android:clickable="true"

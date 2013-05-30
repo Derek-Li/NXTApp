@@ -7,12 +7,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity {
 		super(R.string.app_name);
 	}
 
-	public Fragment MApieces;   
+	public Fragment MApieces;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,21 +56,28 @@ public class MainActivity extends BaseActivity {
 		setSlidingActionBarEnabled(true);
 
 	}
-	
-	@Override
-	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setTitle("Exit?")
-				.setMessage("Do you really want to exit?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
 
-							public void onClick(DialogInterface x, int y) {
-								MainActivity.super.onBackPressed();
-								finish();
-							}
-						}).create().show();
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			new AlertDialog.Builder(this)
+					.setTitle("Exit?")
+					.setMessage("Do you really want to exit?")
+					.setNegativeButton(android.R.string.no, null)
+					.setPositiveButton(android.R.string.yes,
+							new DialogInterface.OnClickListener() {
+
+								public void onClick(DialogInterface x, int y) {
+									Intent intent = new Intent(
+											Intent.ACTION_MAIN);
+									intent.addCategory(Intent.CATEGORY_HOME);
+									intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+									startActivity(intent);
+								}
+							}).create().show();
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	@Override
@@ -98,7 +105,7 @@ public class MainActivity extends BaseActivity {
 
 	public static class AllContent extends SherlockFragment {
 
-		ImageView btnOrange, btnGray, avatar;
+		ImageView btnOrange, btnGray, avatar, tutorial;
 		TextView userName, teamName, teamNum, grade, schoolName, teacherName;
 		SharedPreferences someData;
 		public static String filename = "JohnDoe";
@@ -122,11 +129,14 @@ public class MainActivity extends BaseActivity {
 
 			btnOrange = (ImageView) getView().findViewById(R.id.orangebutton);
 			btnOrange.setImageResource(R.drawable.camera);
-			
+
 			btnGray = (ImageView) getView().findViewById(R.id.graybutton);
 			btnGray.setImageResource(R.drawable.graybutton);
-			
+
 			avatar = (ImageView) getView().findViewById(R.id.targetimage);
+
+			tutorial = (ImageView) getView().findViewById(R.id.tutorial_page);
+			tutorial.setImageResource(R.drawable.tutorial_button);
 
 			userName = (TextView) getView().findViewById(R.id.userName);
 			teamName = (TextView) getView().findViewById(R.id.teamName);
@@ -137,6 +147,7 @@ public class MainActivity extends BaseActivity {
 
 			addListenerOnImageView(btnOrange);
 			addListenerOnImageView(btnGray);
+			addListenerOnImageView(tutorial);
 
 			InputStream is = getResources().openRawResource(
 					R.drawable.ic_launcher);
@@ -170,7 +181,9 @@ public class MainActivity extends BaseActivity {
 			try {
 				BitmapFactory.Options options = new BitmapFactory.Options();
 				options.inSampleSize = 10;
-				bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(newUri), null, options);
+				bitmap = BitmapFactory.decodeStream(getActivity()
+						.getContentResolver().openInputStream(newUri), null,
+						options);
 				avatar.setImageBitmap(bitmap);
 
 			} catch (FileNotFoundException e) {
@@ -178,10 +191,7 @@ public class MainActivity extends BaseActivity {
 				e.printStackTrace();
 			}
 
-			
 		}
-		
-	
 
 		public void addListenerOnImageView(ImageView I_m) {
 
@@ -195,6 +205,11 @@ public class MainActivity extends BaseActivity {
 					case R.id.graybutton:
 						startActivity(new Intent(
 								"com.example.slidingmenuexample.ui.Registration"));
+						break;
+					case R.id.tutorial_page:
+						startActivity(new Intent(
+								"com.example.slidingmenuexample.tutorial.TutorialPart1"));
+						break;
 					}
 				}
 			});

@@ -39,6 +39,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,7 +64,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 public class NXTRemoteControl extends SlidingFragmentActivity implements
 		OnSharedPreferenceChangeListener {
-	
+
 	public static final String CONNECT_IMG_REF = "button_a";
 	public static final String DISCONNECT_IMG_REF = "button_b";
 	public static final String UP_IMG_REF = "up_arrow";
@@ -84,8 +85,8 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 	public static final String TOAST = "toast";
 
 	private static final int MODE_BUTTONS = 1;
-	
-	private BluetoothAdapter mBluetoothAdapter;   
+
+	private BluetoothAdapter mBluetoothAdapter;
 	private PowerManager mPowerManager;
 	private PowerManager.WakeLock mWakeLock;
 	private NXTTalker mNXTTalker;
@@ -106,17 +107,17 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 	private boolean mReverseLR;
 	private boolean mRegulateSpeed;
 	private boolean mSynchronizeMotors;
-	
-	private Fragment mContent;
+
+	private Fragment NXTpieces;
 
 	/** Called when the activity is first created. */
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		
+
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 		readPreferences(prefs, null);
@@ -155,54 +156,65 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		setupUI();
 
 		mNXTTalker = new NXTTalker(mHandler);
-		
+
 		pagelist = getSlidingMenu();
 		pagelist.setShadowDrawable(R.drawable.shadow);
 		pagelist.setBehindOffset(600);
 		pagelist.setShadowWidth(15);
 		pagelist.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-		
+
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.ic_launcher);
-		
+
 		if (savedInstanceState != null)
-			mContent = getSupportFragmentManager().getFragment(
+			NXTpieces = getSupportFragmentManager().getFragment(
 					savedInstanceState, "mContent");
-		if (mContent == null)
-			mContent = new NXTRemoteControlView();
+		if (NXTpieces == null)
+			NXTpieces = new NXTRemoteControlView();
 
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, mContent).commit();
+				.replace(R.id.content_frame, NXTpieces).commit();
 
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.menu_frame, new MenuListPages()).commit();
-		
+
 		setSlidingActionBarEnabled(true);
 	}
-	
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	        Intent backToMA = new Intent(this, MainActivity.class);
+	        backToMA.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        startActivity(backToMA);
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}   
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
-	
+		getSupportFragmentManager().putFragment(outState, "NXTpieces",
+				NXTpieces);
+
 		if (mState == NXTTalker.STATE_CONNECTED) {
 			outState.putString("device_address", mDeviceAddress);
-		} 
-		
+		}
+
 		outState.putInt("power", mPower);
 		outState.putInt("controls_mode", mControlsMode);
 	}
-	
+
 	public void switchContent(Fragment fragment) {
-		mContent = fragment;
+		NXTpieces = fragment;
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 		getSlidingMenu().showContent();
 	}
 
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -212,24 +224,23 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		}
 		return onOptionsItemSelected(item);
 	}
-	
+
 	@SuppressLint("ValidFragment")
 	public class NXTRemoteControlView extends SherlockFragment {
-		
+
 		public NXTRemoteControlView() {
-			
+
 		}
-		
-		public View onCreateView(LayoutInflater inflater, 	ViewGroup container,
+
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			return inflater.inflate(R.layout.remote_control, container,
-					false);
+			return inflater.inflate(R.layout.remote_control, container, false);
 		}
-		
+
 		public void onStart() {
-			//TODO Auto-generated method
+			// TODO Auto-generated method
 			super.onStart();
-			
+
 			if (!NO_BT) {
 				if (!mBluetoothAdapter.isEnabled()) {
 					Intent enableIntent = new Intent(
@@ -243,35 +254,35 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 					} else {
 						if (mNewLaunch) {
 							mNewLaunch = false;
-							findBrick();
+							searchNXTBrick();
 						}
 					}
 				}
 			}
-			
+
 			setupUI();
-			
+
 			ImageView button_a = (ImageView) findViewById(R.id.button_a);
 			button_a.setImageResource((R.drawable.button_a));
-			
+
 			ImageView button_b = (ImageView) findViewById(R.id.button_b);
-			button_b.setImageResource((R.drawable.button_b));		
-			
+			button_b.setImageResource((R.drawable.button_b));
+
 			ImageView up_arrow = (ImageView) findViewById(R.id.button_up);
-			up_arrow.setImageResource((R.drawable.up_arrow));			
-			
+			up_arrow.setImageResource((R.drawable.up_arrow));
+
 			ImageView down_arrow = (ImageView) findViewById(R.id.button_down);
-			down_arrow.setImageResource((R.drawable.down_arrow));		
-			
+			down_arrow.setImageResource((R.drawable.down_arrow));
+
 			ImageView middle_button = (ImageView) findViewById(R.id.button_middle);
-			middle_button.setImageResource((R.drawable.middle_button));	
-			
+			middle_button.setImageResource((R.drawable.middle_button));
+
 			ImageView left_arrow = (ImageView) findViewById(R.id.button_left);
-			left_arrow.setImageResource((R.drawable.left_arrow));	
-			
+			left_arrow.setImageResource((R.drawable.left_arrow));
+
 			ImageView right_arrow = (ImageView) findViewById(R.id.button_right);
 			right_arrow.setImageResource((R.drawable.right_arrow));
-			
+
 		}
 	}
 
@@ -288,7 +299,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			int action = event.getAction();
-			
+
 			if (action == MotionEvent.ACTION_DOWN) {
 				byte power = (byte) mPower;
 				if (mReverse) {
@@ -316,18 +327,18 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 
 			ImageView buttonUp = (ImageView) findViewById(R.id.button_up);
 			buttonUp.setOnTouchListener(new DirectionButtonOnTouchListener(1, 1));
-			
+
 			ImageView buttonLeft = (ImageView) findViewById(R.id.button_left);
 			buttonLeft.setOnTouchListener(new DirectionButtonOnTouchListener(
-					-0.6, 0.6));
+					-1, 1));
 			ImageView buttonDown = (ImageView) findViewById(R.id.button_down);
 			buttonDown.setOnTouchListener(new DirectionButtonOnTouchListener(
 					-1, -1));
 			ImageView buttonRight = (ImageView) findViewById(R.id.button_right);
 			buttonRight.setOnTouchListener(new DirectionButtonOnTouchListener(
-					0.6, -0.6));
+					1, -1));
 
-			SeekBar powerSeekBar = (SeekBar) findViewById(R.id.power_seekbar);
+			SeekBar powerSeekBar = (SeekBar) findViewById(R.id.power_bar);
 			powerSeekBar.setProgress(mPower);
 			powerSeekBar
 					.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
@@ -348,12 +359,12 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 
 			mStateDisplay = (TextView) findViewById(R.id.state_display);
 
-			mConnectButton = (ImageView) findViewById(R.id.button_b);
+			mConnectButton = (ImageView) findViewById(R.id.button_a);
 			mConnectButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (!NO_BT) {
-						findBrick();
+						searchNXTBrick();
 					} else {
 						mState = NXTTalker.STATE_CONNECTED;
 						displayState();
@@ -361,7 +372,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 				}
 			});
 
-			mDisconnectButton = (ImageView) findViewById(R.id.button_a);
+			mDisconnectButton = (ImageView) findViewById(R.id.button_b);
 			mDisconnectButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -376,10 +387,12 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 	@Override
 	protected void onStart() {
 		super.onStart();
-		
+
 		if (!NO_BT) {
 			if (!mBluetoothAdapter.isEnabled()) {
-				startActivityForResult(new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE), REQUEST_ENABLE_BT);
+				startActivityForResult(new Intent(
+						BluetoothAdapter.ACTION_REQUEST_ENABLE),
+						REQUEST_ENABLE_BT);
 			} else {
 				if (mSavedState == NXTTalker.STATE_CONNECTED) {
 					BluetoothDevice device = mBluetoothAdapter
@@ -388,15 +401,16 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 				} else {
 					if (mNewLaunch) {
 						mNewLaunch = false;
-						findBrick();
+						searchNXTBrick();
 					}
 				}
 			}
 		}
 	}
 
-	private void findBrick() {
-		startActivityForResult(new Intent(this, BTSearcher.class), REQUEST_CONNECT_DEVICE);
+	private void searchNXTBrick() {
+		startActivityForResult(new Intent(this, BTSearcher.class),
+				REQUEST_CONNECT_DEVICE);
 	}
 
 	@Override
@@ -404,7 +418,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 		switch (requestCode) {
 		case REQUEST_ENABLE_BT:
 			if (resultCode == Activity.RESULT_OK) {
-				findBrick();
+				searchNXTBrick();
 			} else {
 				Toast.makeText(this, "Bluetooth not enabled, exiting.",
 						Toast.LENGTH_LONG).show();
@@ -422,7 +436,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			}
 			break;
 		case REQUEST_SETTINGS:
-		
+
 			break;
 		}
 	}
@@ -500,7 +514,7 @@ public class NXTRemoteControl extends SlidingFragmentActivity implements
 			mWakeLock.release();
 		}
 	}
-	
+
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
 			String key) {

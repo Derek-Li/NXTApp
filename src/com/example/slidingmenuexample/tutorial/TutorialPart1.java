@@ -1,9 +1,5 @@
 package com.example.slidingmenuexample.tutorial;
 
-import com.example.slidingmenuexample.R;
-import com.example.slidingmenuexample.R.id;
-import com.example.slidingmenuexample.R.layout;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.example.slidingmenuexample.R;
 
 public class TutorialPart1 extends Activity implements View.OnClickListener {
 

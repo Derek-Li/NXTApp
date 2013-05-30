@@ -3,14 +3,13 @@ package com.example.slidingmenuexample.ui;
 import java.io.FileNotFoundException;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,6 +32,41 @@ public class Registration extends Activity implements OnClickListener {
 		setContentView(R.layout.registration);
 		initialize();
 		someData = getSharedPreferences(filename, 0);
+
+		String dataReturned = someData.getString("userName", "");
+		userName.setText(dataReturned);
+
+		dataReturned = someData.getString("teamName", "");
+		teamName.setText(dataReturned);
+
+		dataReturned = someData.getString("teamNum", "");
+		teamNum.setText(dataReturned);
+
+		dataReturned = someData.getString("grade", "");
+		grade.setText(dataReturned);
+
+		dataReturned = someData.getString("schoolName", "");
+		schoolName.setText(dataReturned);
+
+		dataReturned = someData.getString("teacherName", "");
+		teacherName.setText(dataReturned);
+
+		dataReturned = someData.getString("uriName",
+				"content://media/external/images/media/8775");
+
+		Uri newUri = Uri.parse(dataReturned);
+		Bitmap bitmap;
+		try {
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inSampleSize = 10;
+			bitmap = BitmapFactory.decodeStream(getContentResolver()
+					.openInputStream(newUri), null, options);
+			targetImage.setImageBitmap(bitmap);
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -104,24 +138,20 @@ public class Registration extends Activity implements OnClickListener {
 		editor.commit();
 
 		startActivity(new Intent(Registration.this, MainActivity.class));
+		finish();
 
 	}
 
 	@Override
-	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setTitle("Exit?")
-				.setMessage("Do you really want to exit?")
-				.setNegativeButton(android.R.string.no, null)
-				.setPositiveButton(android.R.string.yes,
-						new DialogInterface.OnClickListener() {
-
-							public void onClick(DialogInterface x, int y) {
-								Registration.super.onBackPressed();
-								finish();
-							}
-						}).create().show();
-	}
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	        Intent backToMA = new Intent(this, MainActivity.class);
+	        backToMA.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        startActivity(backToMA);
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}   
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
