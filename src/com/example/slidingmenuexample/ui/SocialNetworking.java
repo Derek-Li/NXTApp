@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -100,74 +101,67 @@ public class SocialNetworking extends SlidingFragmentActivity {
 			email = (Button) getView().findViewById(R.id.emailbtn);
 			options = (Button) getView().findViewById(R.id.options);
 			wikispacesbtn = (Button) getView().findViewById(R.id.wikispacesbtn);
+			
+			addListenerOnView(instagram);
+			addListenerOnView(facebook);
+			addListenerOnView(twitter);
+			addListenerOnView(email);
+			addListenerOnView(options);
+			addListenerOnView(wikispacesbtn);
 
-			wikispacesbtn.setOnClickListener(new View.OnClickListener() {
+		}
+
+		public void addListenerOnView(View I_m) {
+
+			I_m.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					String url = "http://www.wikispaces.com/";
-					Intent wikispacesIntent = new Intent(
-							android.content.Intent.ACTION_VIEW);
-					wikispacesIntent.setData(Uri.parse(url));
-					startActivity(wikispacesIntent);
-				}
-			});
+					switch (v.getId()) {
+					case R.id.instagrambtn:
+						String instagramurl = "https://instagram.com/accounts/login/";
+						Intent instagramIntent = new Intent(
+								android.content.Intent.ACTION_VIEW);
+						instagramIntent.setData(Uri.parse(instagramurl));
+						startActivity(instagramIntent);
+						break;
+					case R.id.facebook:
+						try {
+							Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+									.parse("fb://?ref=tn_tnmn"));
+							startActivity(intent);
 
-			facebook.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					try {
-
-						Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-								.parse("fb://?ref=tn_tnmn"));
-						startActivity(intent);
-
-					} catch (Exception e) {
-
-						startActivity(new Intent(Intent.ACTION_VIEW, Uri
-								.parse("http://www.facebook.com/?ref=tn_tnmn")));
+						} catch (Exception e) {
+							startActivity(new Intent(Intent.ACTION_VIEW, Uri
+									.parse("http://www.facebook.com/?ref=tn_tnmn")));
+						}
+						break;
+					case R.id.twitter:
+						String twitterurl = "https://twitter.com/intent/tweet?source=webclient&text=TWEET+THIS!";
+						Intent twitterIntent = new Intent(
+								android.content.Intent.ACTION_VIEW);
+						twitterIntent.setData(Uri.parse(twitterurl));
+						startActivity(twitterIntent);
+						break;
+					case R.id.emailbtn:
+						Intent emailIntent = new Intent(
+								android.content.Intent.ACTION_SEND);
+						emailIntent.setType("text/plain");
+						startActivity(emailIntent);
+						break;
+					case R.id.options:
+						Intent othersIntent = new Intent(
+								android.content.Intent.ACTION_VIEW);
+						startActivity(Intent.createChooser(othersIntent,
+								"Choose one"));
+						break;
+					case R.id.wikispacesbtn:
+						String url = "http://www.wikispaces.com/";
+						Intent wikispacesIntent = new Intent(
+								android.content.Intent.ACTION_VIEW);
+						wikispacesIntent.setData(Uri.parse(url));
+						startActivity(wikispacesIntent);
+						break;
 					}
-				}
-			});
-
-			twitter.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					String url = "https://twitter.com/intent/tweet?source=webclient&text=TWEET+THIS!";
-					Intent twitterIntent = new Intent(
-							android.content.Intent.ACTION_VIEW);
-					twitterIntent.setData(Uri.parse(url));
-					startActivity(twitterIntent);
-				}
-			});
-
-			instagram.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					String url = "https://instagram.com/accounts/login/";
-					Intent instagramIntent = new Intent(
-							android.content.Intent.ACTION_VIEW);
-					instagramIntent.setData(Uri.parse(url));
-					startActivity(instagramIntent);
-				}
-			});
-
-			email.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent emailIntent = new Intent(
-							android.content.Intent.ACTION_SEND);
-					emailIntent.setType("text/plain");
-					startActivity(emailIntent);
-				}
-			});
-
-			options.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent othersIntent = new Intent(
-							android.content.Intent.ACTION_VIEW);
-					startActivity(Intent.createChooser(othersIntent,
-							"Choose one"));
 				}
 			});
 		}
